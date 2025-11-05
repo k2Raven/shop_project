@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from webapp.models import Category, Product
 
 def product_list_view(request):
@@ -14,6 +14,10 @@ def product_create_view(request):
         image = request.POST.get('image_url')
         category_id = request.POST.get('category_id')
         product = Product.objects.create(title=title, description=description, price=price, image=image, category_id=category_id)
-        return redirect('product_list')
+        return redirect('product_detail', pk=product.pk)
 
     return render(request, 'article_create.html', {'categories': categories})
+
+def product_detail_view(request, *args, pk, **kwargs):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'article_detail.html', {'product': product})
