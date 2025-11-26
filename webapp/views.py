@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.defaultfilters import title
+
 from webapp.models import Category, Product
 
 def product_list_view(request):
-    products = Product.objects.all()
+    products = Product.objects.exclude(balance=0).order_by('category__title', 'title')
     return render(request, 'product_list.html', {'products': products})
 
 def product_create_view(request):
@@ -21,3 +23,12 @@ def product_create_view(request):
 def product_detail_view(request, *args, pk, **kwargs):
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'article_detail.html', {'product': product})
+
+
+def category_create_view(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        Category.objects.create(title=title, description=description)
+        return redirect('product_list')
+    return render(request, 'category_create.html')

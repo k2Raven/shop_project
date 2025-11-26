@@ -16,6 +16,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время добавления')
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name='Стоимость')
     image = models.URLField(verbose_name='Изображение')
+    balance = models.PositiveIntegerField(verbose_name='Остаток', default=0)
 
     def __str__(self):
         return f'{self.id} - {self.title}'
