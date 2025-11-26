@@ -3,6 +3,7 @@ from django.db.models import F, Sum
 from django.views.generic import View, ListView
 
 from webapp.models import Product, Cart
+from webapp.forms import OrderForm
 
 class AddProductToCartView(View):
     def get(self, request, *args, **kwargs):
@@ -29,6 +30,7 @@ class CartView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['all_total'] = self.get_queryset().aggregate(Sum('total'))['total__sum']
+        context['form'] = OrderForm()
         return context
 
 class DeleteProductFromCartView(View):

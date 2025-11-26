@@ -32,6 +32,12 @@
                 </tbody>
             </table>
             <h3>Total: {{ all_total }}</h3>
+
+            <div class="my-3">
+            <form action="{% url 'order_create' %}" method="post">
+                {% include 'partial/form.html' with button_name='Create Order' %}
+            </form>
+            </div>
         {% else %}
             <p>Cart is empty</p>
         {% endif %}
