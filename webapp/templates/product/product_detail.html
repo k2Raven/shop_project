@@ -20,6 +20,8 @@
                             class="text-body-secondary">{{ product.created_at }}</small></p>
                     <a class="btn btn-primary" href="{% url 'product_update' product.pk %}" role="button">Edit</a>
                     <a class="btn btn-primary" href="{% url 'product_delete' product.pk %}" role="button">Delete</a>
+                    <a class="btn btn-primary" href="{% url 'product_add_to_cart' product.pk %}" role="button">Add to
+                        Cart</a>
                 </div>
             </div>
         </div>

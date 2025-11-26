@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <h1>Cart</h1>
+    <div class="my-3">
+        {% if products_in_cart.count %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">product name</th>
+                    <th scope="col">qty</th>
+                    <th scope="col">price</th>
+                    <th scope="col">total</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product_cart in products_in_cart %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ product_cart.product.title }}</td>
+                        <td>{{ product_cart.qty }}</td>
+                        <td>{{ product_cart.product.price }}</td>
+                        <td>{{ product_cart.total }}</td>
+{#                        <td>{{ product_cart.get_total }}</td>#}
+                        <td><a href="{% url 'cart_delete_product' product_cart.pk %}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <h3>Total: {{ all_total }}</h3>
+        {% else %}
+            <p>Cart is empty</p>
+        {% endif %}
+    </div>
+{% endblock %}
