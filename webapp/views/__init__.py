@@ -1,0 +1,1 @@
+from webapp.views.product import ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView, ProductDeleteView

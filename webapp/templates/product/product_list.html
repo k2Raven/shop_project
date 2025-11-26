@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
+    {% include 'partial/simple_search.html' with form=search_form %}
+    <div class="row my-4">
         {% for product in products %}
             <div class="col-3">
                 <div class="card mb-3">
@@ -20,6 +21,8 @@
                                         class="text-body-secondary">{{ product.category.title }}</small></p>
                                 <p class="card-text">Price: {{ product.price }} $</p>
                                 <a class="btn btn-primary" href="{% url 'product_detail' product.pk %}" role="button">see more >>></a>
+                                <a class="btn btn-primary" href="{% url 'product_update' product.pk %}" role="button">Edit</a>
+                                <a class="btn btn-primary" href="{% url 'product_delete' product.pk %}" role="button">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -27,4 +30,7 @@
             </div>
         {% endfor %}
     </div>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
 {% endblock %}
