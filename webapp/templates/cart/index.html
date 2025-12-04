@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Cart</h1>
     <div class="my-3">
-        {% if products_in_cart.count %}
+        {% if products_in_cart %}
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -26,7 +26,7 @@
                         <td>{{ product_cart.product.price }}</td>
                         <td>{{ product_cart.total }}</td>
 {#                        <td>{{ product_cart.get_total }}</td>#}
-                        <td><a href="{% url 'cart_delete_product' product_cart.pk %}" class="btn btn-danger">Delete</a></td>
+                        <td><a href="{% url 'cart_delete_product' product_cart.product.pk %}" class="btn btn-danger">Delete</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
