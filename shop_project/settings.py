@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'webapp',
     'accounts',
+
+    'behave_django'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
