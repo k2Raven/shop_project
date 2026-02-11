@@ -9,6 +9,7 @@ colorama==0.4.6
 cucumber-expressions==19.0.0
 cucumber-tag-expressions==9.0.0
 Django==5.2.7
+django-environ==0.12.0
 factory_boy==3.3.3
 Faker==40.1.2
 gunicorn==25.0.3

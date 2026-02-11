@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+env = environ.Env()
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DEBUG', default=0))
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='*').split(' ')
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='*').split(' ')
 
 
 # Application definition
@@ -88,12 +95,12 @@ WSGI_APPLICATION = 'shop_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('SQL_DATABASE', BASE_DIR / 'db.sqlite3'),
-        'USER': os.environ.get('SQL_USER', 'user'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'password'),
-        'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '5432'),
+        'ENGINE': env('SQL_ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': env('SQL_DATABASE', default=BASE_DIR / 'db.sqlite3'),
+        'USER': env('SQL_USER', default='user'),
+        'PASSWORD': env('SQL_PASSWORD', default='password'),
+        'HOST': env('SQL_HOST', default='localhost'),
+        'PORT': env('SQL_PORT', default='5432'),
     }
 }
 
