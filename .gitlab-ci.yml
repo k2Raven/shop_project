@@ -2,5 +2,6 @@ test-job:
   image: python:3.12
   script:
     - echo "Hello, World!"
-    - python --version
-    - ls
+    - pip install -r requirements.txt
+    - echo "SECRET_KEY='$SECRET_KEY'" > .env
+    - python manage.py test
