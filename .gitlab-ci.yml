@@ -1,2 +1,6 @@
 test-job:
-  script: echo "Hello, World!"
+  image: python:3.12
+  script:
+    - echo "Hello, World!"
+    - python --version
+    - ls
