@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!doctype html>
 <html lang="en">
@@ -13,29 +14,49 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'main' %}">My market</a>
+        <a class="navbar-brand" href="{% url 'main' %}">{% translate "My market" %}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="{% url 'product_list' %}">Products</a>
-                <a class="nav-link" href="{% url 'product_add' %}">Add Product</a>
-                <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                <a class="nav-link" href="{% url 'product_list' %}">{% blocktranslate %}
+                    Products{% endblocktranslate %}</a>
+                <a class="nav-link" href="{% url 'product_add' %}">{% translate "Add Product" %}</a>
+                <a class="nav-link" href="{% url 'cart' %}">{% translate "Cart" %}</a>
                 {% block menu %}{% endblock %}
                 {% if request.user.is_authenticated %}
-                    <a class="nav-link active" aria-current="page" href="{% url 'accounts:profile' request.user.id %}">Привет, {{ request.user.get_full_name|default:request.user.username }}</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'accounts:profile' request.user.id %}">
+                        {% blocktranslate with user_name=request.user.get_full_name|default:request.user.username %}
+                            Привет, {{ user_name }}{% endblocktranslate %}</a>
                     <form method="post" action="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">
                         {% csrf_token %}
-                        <button type="submit" class="nav-link active">Выйти</button>
+                        <button type="submit" class="nav-link active">{% translate "Выйти" %}</button>
                     </form>
                 {% else %}
                     <a class="nav-link active" aria-current="page"
-                       href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Войти</a>
+                       href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">{% translate "Войти" %}</a>
                     <a class="nav-link active" aria-current="page"
-                       href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">Зарегистрироваться</a>
+                       href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">{% translate "Зарегистрироваться" %}</a>
                 {% endif %}
+
+                <li class="nav-item dropdown">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% get_language_info for LANGUAGE_CODE as current_language %}
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">{{ current_language.name_local }}</a>
+                    <ul class="dropdown-menu">
+                        {% for language in languages %}
+                            <li><a class="dropdown-item {% if language.code == LANGUAGE_CODE %}active{% endif %}"
+                                   href="/{{ language.code }}{{ language_base_link }}">
+                                {{ language.name_local }} ({{ language.code }})
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </div>
         </div>
     </div>

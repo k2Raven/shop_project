@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-04 13:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: webapp/forms/simple_search.py:6
+msgid "Найти"
+msgstr "Search"
+
+#: webapp/models/cart.py:6 webapp/models/product_order.py:7
+msgid "Товар"
+msgstr "Product"
+
+#: webapp/models/cart.py:7 webapp/models/product_order.py:10
+msgid "Количество"
+msgstr "Count"
+
+#: webapp/models/category.py:6 webapp/models/product.py:7
+msgid "Название"
+msgstr "Title"
+
+#: webapp/models/category.py:7 webapp/models/product.py:8
+msgid "Описание"
+msgstr "Description"
+
+#: webapp/models/order.py:6
+msgid "Имя пользователя"
+msgstr "Username"
+
+#: webapp/models/order.py:7
+msgid "Телефон"
+msgstr "Phone"
+
+#: webapp/models/order.py:8
+msgid "Адрес"
+msgstr "Address"
+
+#: webapp/models/order.py:11
+msgid "Продукты"
+msgstr "Products"
+
+#: webapp/models/product.py:10
+msgid "Категория"
+msgstr "Category"
+
+#: webapp/models/product.py:11
+msgid "Дата и время добавления"
+msgstr "Date and time of addition"
+
+#: webapp/models/product.py:12
+msgid "Стоимость"
+msgstr "Cost"
+
+#: webapp/models/product.py:13
+msgid "Изображение"
+msgstr "Picture"
+
+#: webapp/models/product.py:14
+msgid "Остаток"
+msgstr "Remaining"
+
+#: webapp/models/product_order.py:9
+msgid "Заказ"
+msgstr "Order"
+
+#: webapp/templates/base.html:17
+msgid "My market"
+msgstr "My market"
+
+#: webapp/templates/base.html:24
+msgid "Products"
+msgstr "Products"
+
+#: webapp/templates/base.html:25
+msgid "Add Product"
+msgstr "Add Product"
+
+#: webapp/templates/base.html:26
+msgid "Cart"
+msgstr "Cart"
+
+#: webapp/templates/base.html:29
+#, python-format
+msgid "Привет, %(user_name)s"
+msgstr "Hello, %(user_name)s"
+
+#: webapp/templates/base.html:32
+msgid "Выйти"
+msgstr "Logout"
+
+#: webapp/templates/base.html:36
+msgid "Войти"
+msgstr "Login"
+
+#: webapp/templates/base.html:38
+msgid "Зарегистрироваться"
+msgstr "Register"
