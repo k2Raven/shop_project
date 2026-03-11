@@ -1,0 +1,45 @@
+services:
+  redis:
+    image: redis:7.0.5-alpine
+    container_name: redis
+    command: redis-server
+    volumes:
+      - "./.volumes/redis:/data"
+    restart: always
+
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8080
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+
+  celery:
+    build: .
+    command: celery -A shop_project worker -l INFO
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - redis
+
+  celery-beat:
+    build: .
+    command: celery -A shop_project beat
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - redis
+      - celery

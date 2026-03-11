@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 import environ
-
-
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,7 +48,10 @@ INSTALLED_APPS = [
     'webapp',
     'accounts',
 
-    'behave_django'
+    'behave_django',
+
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +168,18 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_TIMEZONE = "UTC"
+CELERY_BROKER_URL = env.str("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_RESULT_EXTENDED = True
+CELERY_RESULT_EXPIRES = 60 * 60 * 24 * 3  # 3 days
+
+CELERY_BEAT_SCHEDULE = {
+    'print_text': {
+        "task": "webapp.tasks.print_text",
+        'schedule': crontab(minute='*'),
+    }
+}

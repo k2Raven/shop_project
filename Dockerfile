@@ -1,4 +1,13 @@
-FROM jenkins/jenkins:lts-jdk21
-USER root
-RUN apt-get update && apt-get install -y python3 python3-pip python3.13-venv
-USER jenkins
+FROM python:3.12-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .

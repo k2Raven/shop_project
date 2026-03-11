@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from webapp.models import Product
 from webapp.forms import ProductForm, SimpleSearchForm
+from webapp.tasks import send_email_task
 
 
 class ProductListView(ListView):
@@ -34,6 +35,7 @@ class ProductListView(ListView):
         if self.search_value:
             context['search_value'] = self.search_value
             context['query'] = urlencode({'searh': self.search_value})
+        send_email_task.delay(1, {'test': 'test'})
         return context
 
     def get_queryset(self):
